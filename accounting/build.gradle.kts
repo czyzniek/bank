@@ -11,7 +11,6 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.allopen") version "1.4.21"
 }
 
 group = "pl.sii.bank"
@@ -40,6 +39,13 @@ dependencies {
     }
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
     testImplementation("io.mockk:mockk:1.10.3")
+
+    //SPOCK
+    testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
+    testImplementation("io.github.joke:spock-mockable:1.1.0") {
+        exclude(module = "groovy-bom")
+        exclude(module = "spock-bom")
+    }
 }
 
 dependencyManagement {
@@ -55,18 +61,14 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 configure<ContractVerifierExtension> {
     setContractsDslDir(file("src/main/contracts"))
-    setTestFramework(TestFramework.JUNIT5)
+    setTestFramework(TestFramework.SPOCK)
     setBasePackageForTests("pl.sii.bank.accounting")
     setBaseClassMappings(
         mapOf(
-            "web" to "pl.sii.bank.accounting.WebContractBaseClass",
-            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseClass"
+            "web" to "pl.sii.bank.accounting.SpockWebContractBaseClass"
+//            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseClass"
         )
     )
     setFailOnInProgress(false)
