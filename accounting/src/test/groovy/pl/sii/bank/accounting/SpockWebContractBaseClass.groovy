@@ -1,6 +1,5 @@
 package pl.sii.bank.accounting
 
-import io.github.joke.spockmockable.Mockable
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -18,7 +17,6 @@ import spock.mock.DetachedMockFactory
 
 @WebMvcTest(controllers = [CustomerController.class, AccountController.class])
 @Import(ContractConfiguration)
-@Mockable([CreateCustomerUserCase, FetchAccountBalanceUseCase, FetchAllCustomersUseCase, CreateAccountForCustomerUseCase])
 abstract class SpockWebContractBaseClass extends Specification {
 
     @Autowired

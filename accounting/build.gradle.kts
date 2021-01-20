@@ -19,6 +19,7 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 extra["springCloudVersion"] = "Hoxton.SR9"
@@ -42,10 +43,8 @@ dependencies {
 
     //SPOCK
     testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
-    testImplementation("io.github.joke:spock-mockable:1.1.0") {
-        exclude(module = "groovy-bom")
-        exclude(module = "spock-bom")
-    }
+    testImplementation("dev.sarek:sarek-spock-extension:1.0-SNAPSHOT")
+    testImplementation("dev.sarek:sarek:1.0-SNAPSHOT")
 }
 
 dependencyManagement {
