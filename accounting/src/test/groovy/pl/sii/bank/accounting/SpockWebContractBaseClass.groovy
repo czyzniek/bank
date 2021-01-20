@@ -19,13 +19,16 @@ import spock.mock.DetachedMockFactory
 @WebMvcTest(controllers = [CustomerController.class, AccountController.class])
 @Import(ContractConfiguration)
 @Mockable([CreateCustomerUserCase, FetchAccountBalanceUseCase, FetchAllCustomersUseCase, CreateAccountForCustomerUseCase])
-class SpockWebContractBaseClass extends Specification {
+abstract class SpockWebContractBaseClass extends Specification {
 
     @Autowired
     CustomerController customerController
 
     @Autowired
     AccountController accountController
+
+    @Autowired
+    FetchAccountBalanceUseCase fetchAccountBalanceUseCase
 
     def setup() {
         RestAssuredMockMvc.standaloneSetup(customerController, accountController)
