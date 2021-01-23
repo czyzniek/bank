@@ -11,7 +11,6 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.allopen") version "1.4.21"
 }
 
 group = "pl.sii.bank"
@@ -19,6 +18,7 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -39,7 +39,11 @@ dependencies {
         exclude(module = "mockito-junit-jupiter")
     }
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
-    testImplementation("io.mockk:mockk:1.10.3")
+    testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
+    testImplementation("io.github.joke:spock-mockable:1.2.0") {
+        exclude(module = "groovy-bom")
+        exclude(module = "spock-bom")
+    }
 }
 
 dependencyManagement {
@@ -55,13 +59,9 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 configure<ContractVerifierExtension> {
     setContractsDslDir(file("src/main/contracts"))
-    setTestFramework(TestFramework.JUNIT5)
+    setTestFramework(TestFramework.SPOCK)
     setBasePackageForTests("pl.sii.bank.accounting")
     setBaseClassMappings(
         mapOf(

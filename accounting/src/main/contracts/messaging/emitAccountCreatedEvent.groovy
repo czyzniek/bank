@@ -1,8 +1,6 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    inProgress()
-
     label 'emit_created_account_event'
     input {
         triggeredBy 'accountCreatedTriggered()'
