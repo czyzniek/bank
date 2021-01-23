@@ -65,8 +65,8 @@ configure<ContractVerifierExtension> {
     setBasePackageForTests("pl.sii.bank.accounting")
     setBaseClassMappings(
         mapOf(
-            "web" to "pl.sii.bank.accounting.WebContractBaseClass",
-            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseClass"
+            "web" to "pl.sii.bank.accounting.WebContractBaseSpec",
+            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseSpec"
         )
     )
     setFailOnInProgress(false)

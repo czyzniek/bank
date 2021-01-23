@@ -16,25 +16,25 @@ abstract class ContractBaseSpec extends Specification {
     TransactionController testController
 
     @SpringBean
-    InitializeTransactionUseCase initializeTransactionUseCase = Mock() {
+    InitializeTransactionUseCase initializeTransactionUseCase = Stub() {
         execute(_ as InitializeTransactionUseCase.Input) >>
             new InitializeTransactionUseCase.Output(UUID.randomUUID())
     }
 
     @SpringBean
-    ConfirmTransactionUseCase confirmTransactionUseCase = Mock() {
+    ConfirmTransactionUseCase confirmTransactionUseCase = Stub() {
         execute(_ as ConfirmTransactionUseCase.Input) >>
             new ConfirmTransactionUseCase.Output(true)
     }
 
     @SpringBean
-    AuthorizeTransactionUseCase authorizeTransactionUseCase = Mock() {
+    AuthorizeTransactionUseCase authorizeTransactionUseCase = Stub() {
         execute(_ as AuthorizeTransactionUseCase.Input) >>
             new AuthorizeTransactionUseCase.Output(true)
     }
 
     @SpringBean
-    FetchTransactionStatusUseCase fetchTransactionStatusUseCase = Mock() {
+    FetchTransactionStatusUseCase fetchTransactionStatusUseCase = Stub() {
         execute(_ as FetchTransactionStatusUseCase.Input) >>
             new FetchTransactionStatusUseCase.Output(TransactionStatus.INITIALIZED)
     }

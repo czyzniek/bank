@@ -14,7 +14,7 @@ import java.time.LocalDate
 
 @WebMvcTest(controllers = [CustomerController.class, AccountController.class])
 @Mockable([CreateCustomerUserCase, FetchAccountBalanceUseCase, FetchAllCustomersUseCase, CreateAccountForCustomerUseCase])
-abstract class WebContractBaseClass extends Specification {
+class WebContractBaseSpec extends Specification {
 
     @Autowired
     CustomerController customerController
@@ -23,13 +23,13 @@ abstract class WebContractBaseClass extends Specification {
     AccountController accountController
 
     @SpringBean
-    CreateCustomerUserCase createCustomerUserCase = Mock() {
+    CreateCustomerUserCase createCustomerUserCase = Stub() {
         execute(_ as CreateCustomerUserCase.Input) >>
             new CreateCustomerUserCase.Output(UUID.randomUUID())
     }
 
     @SpringBean
-    FetchAllCustomersUseCase fetchAllCustomersUseCase = Mock() {
+    FetchAllCustomersUseCase fetchAllCustomersUseCase = Stub() {
         execute() >>
             new FetchAllCustomersUseCase.Output([
                 new Customer(
@@ -49,7 +49,7 @@ abstract class WebContractBaseClass extends Specification {
     }
 
     @SpringBean
-    FetchAccountBalanceUseCase fetchAccountBalanceUseCase = Mock() {
+    FetchAccountBalanceUseCase fetchAccountBalanceUseCase = Stub() {
         execute(_ as FetchAccountBalanceUseCase.Input) >>
             new FetchAccountBalanceUseCase.Output(
                 UUID.fromString("4b5dbd29-865e-4781-be21-a031a6a7cdb0"),
@@ -57,7 +57,7 @@ abstract class WebContractBaseClass extends Specification {
     }
 
     @SpringBean
-    CreateAccountForCustomerUseCase createAccountForCustomerUseCase = Mock() {
+    CreateAccountForCustomerUseCase createAccountForCustomerUseCase = Stub() {
         execute(_ as CreateAccountForCustomerUseCase.Input) >>
             new CreateAccountForCustomerUseCase.Output(UUID.randomUUID())
     }

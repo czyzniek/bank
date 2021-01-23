@@ -1,6 +1,6 @@
 package pl.sii.bank.accounting
 
-import io.github.joke.spockmockable.Mockable
+
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -15,8 +15,7 @@ import java.time.LocalDate
     webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @AutoConfigureMessageVerifier
-@Mockable([CustomerStore])
-abstract class MessagingContractBaseClass extends Specification {
+class MessagingContractBaseSpec extends Specification {
 
     static final UUID CUSTOMER_ID = UUID.randomUUID()
 
@@ -24,7 +23,7 @@ abstract class MessagingContractBaseClass extends Specification {
     CreateAccountForCustomerUseCase createAccountForCustomerUseCase
 
     @SpringBean
-    CustomerStore customerStore = Mock() {
+    CustomerStore customerStore = Stub() {
         save(_ as Customer) >> { Customer customer -> customer }
 
         findById(_ as UUID) >> { UUID customerId ->
