@@ -18,6 +18,7 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -36,9 +37,12 @@ dependencies {
         exclude(module = "mockito-core")
         exclude(module = "mockito-junit-jupiter")
     }
-    testImplementation("io.mockk:mockk:1.10.3")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-    testImplementation("org.assertj:assertj-core:3.18.1")
+    testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
+    testImplementation("io.github.joke:spock-mockable:1.2.0") {
+        exclude(module = "groovy-bom")
+        exclude(module = "spock-bom")
+    }
 
 }
 
@@ -55,12 +59,9 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 configure<ContractVerifierExtension> {
     setContractsDslDir(file("src/main/contracts"))
-    setTestFramework(TestFramework.JUNIT5)
-    setBaseClassForTests("pl.sii.bank.transaction.ContractBaseClass")
+    setTestFramework(TestFramework.SPOCK)
+    setBasePackageForTests("pl.sii.bank.transaction")
+    setBaseClassForTests("pl.sii.bank.transaction.ContractBaseSpec")
 }

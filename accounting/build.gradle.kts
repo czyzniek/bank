@@ -18,6 +18,7 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -38,11 +39,8 @@ dependencies {
         exclude(module = "mockito-junit-jupiter")
     }
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
-    testImplementation("io.mockk:mockk:1.10.3")
-
-    //SPOCK
     testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
-    testImplementation("io.github.joke:spock-mockable:1.1.0") {
+    testImplementation("io.github.joke:spock-mockable:1.2.0") {
         exclude(module = "groovy-bom")
         exclude(module = "spock-bom")
     }
@@ -67,8 +65,8 @@ configure<ContractVerifierExtension> {
     setBasePackageForTests("pl.sii.bank.accounting")
     setBaseClassMappings(
         mapOf(
-            "web" to "pl.sii.bank.accounting.SpockWebContractBaseClass"
-//            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseClass"
+            "web" to "pl.sii.bank.accounting.WebContractBaseClass",
+            "messaging" to "pl.sii.bank.accounting.MessagingContractBaseClass"
         )
     )
     setFailOnInProgress(false)
