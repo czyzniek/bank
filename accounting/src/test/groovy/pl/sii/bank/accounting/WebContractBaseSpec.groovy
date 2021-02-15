@@ -14,7 +14,7 @@ import java.time.LocalDate
 
 @WebMvcTest(controllers = [CustomerController.class, AccountController.class])
 @Mockable([CreateCustomerUserCase, FetchAccountBalanceUseCase, FetchAllCustomersUseCase, CreateAccountForCustomerUseCase])
-class WebContractBaseSpec extends Specification {
+abstract class WebContractBaseSpec extends Specification {
 
     @Autowired
     CustomerController customerController

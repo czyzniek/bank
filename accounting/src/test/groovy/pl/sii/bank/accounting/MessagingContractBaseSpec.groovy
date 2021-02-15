@@ -1,10 +1,11 @@
 package pl.sii.bank.accounting
 
-
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier
+import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration
 import pl.sii.bank.accounting.domain.*
 import spock.lang.Specification
 
@@ -15,7 +16,8 @@ import java.time.LocalDate
     webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @AutoConfigureMessageVerifier
-class MessagingContractBaseSpec extends Specification {
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
+abstract class MessagingContractBaseSpec extends Specification {
 
     static final UUID CUSTOMER_ID = UUID.randomUUID()
 

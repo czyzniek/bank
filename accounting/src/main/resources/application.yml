@@ -1,8 +1,12 @@
+server:
+  port: 8081
+
 spring:
   cloud:
     stream:
+      source: accountCreated
       bindings:
-        output:
+        accountCreated-out-0:
           destination: queue.created-account.messages
           binder: local-rabbit
       binders:

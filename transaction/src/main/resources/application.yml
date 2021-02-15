@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        accountCreated-in-0:
+          destination: queue.created-account.messages
+          binder: local-rabbit
+      binders:
+        local-rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: rabbitmq
+                password: rabbitmq
+                virtual-host: /

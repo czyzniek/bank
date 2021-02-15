@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 @WebMvcTest(controllers = [TransactionController])
 @Mockable([InitializeTransactionUseCase, ConfirmTransactionUseCase, AuthorizeTransactionUseCase, FetchTransactionStatusUseCase])
-abstract class ContractBaseSpec extends Specification {
+abstract class WebContractBaseSpec extends Specification {
     @Autowired
     TransactionController testController
 
