@@ -1,5 +1,6 @@
 package pl.sii.bank.accounting.infrastructure
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,11 +9,16 @@ import pl.sii.bank.accounting.infrastructure.store.AccountRepository
 import pl.sii.bank.accounting.infrastructure.store.BankProviderAccountBalanceStore
 
 @Configuration
-class AccountingConfiguration {
+class AccountingConfiguration(
+    @Value("\${bank.provider.url}") private val bankProviderUrl: String
+) {
 
     @Bean
-    fun createCustomerUseCase(customerStore: CustomerStore) =
-        CreateCustomerUserCase(customerStore)
+    fun createCustomerUseCase(
+        customerStore: CustomerStore,
+        externalCustomerProvider: ExternalCustomerProvider
+    ) =
+        CreateCustomerUserCase(customerStore, externalCustomerProvider)
 
     @Bean
     fun fetchAllCustomersUseCase(customerStore: CustomerStore) =
@@ -32,7 +38,7 @@ class AccountingConfiguration {
     ): FetchAccountBalanceUseCase {
         val accountBalanceStore = BankProviderAccountBalanceStore(
             accountRepository,
-            restTemplateBuilder.rootUri("http://localhost:9090").build()
+            restTemplateBuilder.rootUri(bankProviderUrl).build()
         )
         return FetchAccountBalanceUseCase(accountBalanceStore)
     }

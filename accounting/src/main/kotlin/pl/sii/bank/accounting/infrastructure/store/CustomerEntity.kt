@@ -5,6 +5,7 @@ import java.util.*
 
 data class CustomerEntity(
     val id: UUID,
+    val externalId: UUID,
     val firstName: String,
     val lastName: String,
     val birthDate: LocalDate

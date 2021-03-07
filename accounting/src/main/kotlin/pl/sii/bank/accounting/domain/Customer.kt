@@ -6,6 +6,7 @@ import java.util.*
 
 class Customer(
     val id: UUID,
+    val externalId: UUID,
     val firstName: String,
     val lastName: String,
     val birthDate: LocalDate,
@@ -16,6 +17,7 @@ class Customer(
         fun initialize(command: InitializeCustomer): Customer =
             Customer(
                 UUID.randomUUID(),
+                command.externalId,
                 command.firstName,
                 command.lastName,
                 command.birthDate,
@@ -25,6 +27,7 @@ class Customer(
         fun create(customerEntity: CustomerEntity, accounts: MutableList<Account>): Customer =
             Customer(
                 customerEntity.id,
+                customerEntity.externalId,
                 customerEntity.firstName,
                 customerEntity.lastName,
                 customerEntity.birthDate,
@@ -33,6 +36,7 @@ class Customer(
     }
 
     data class InitializeCustomer(
+        val externalId: UUID,
         val firstName: String,
         val lastName: String,
         val birthDate: LocalDate

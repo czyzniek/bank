@@ -12,7 +12,7 @@ class InMemoryCustomerStore(
 ) : CustomerStore {
     override fun save(customer: Customer): Customer =
         customer.apply {
-            dbCustomers[id] = CustomerEntity(id, firstName, lastName, birthDate)
+            dbCustomers[id] = CustomerEntity(id, externalId, firstName, lastName, birthDate)
             accounts
                 .map { account -> AccountEntity(account.id, account.iban, account.currency, this.id) }
                 .forEach { accountRepository.save(it) }

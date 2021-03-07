@@ -7,10 +7,10 @@ plugins {
     id("groovy")
     id("maven-publish")
     id("org.springframework.cloud.contract") version "3.0.1"
-    id("org.springframework.boot") version "2.4.2"
+    id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
+    kotlin("jvm") version "1.4.31"
+    kotlin("plugin.spring") version "1.4.31"
 }
 
 group = "pl.sii.bank"
@@ -31,6 +31,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 

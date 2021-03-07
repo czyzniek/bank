@@ -4,6 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import pl.sii.bank.transaction.domain.AccountBalanceStore
+import pl.sii.bank.transaction.domain.CustomerAccountStore
 import pl.sii.bank.transaction.domain.TransactionStore
 import java.util.concurrent.ConcurrentHashMap
 
@@ -20,4 +21,7 @@ class StoreConfiguration {
                 .rootUri("http://localhost:8081")
                 .build()
         )
+
+    @Bean
+    fun customerAccountStore(): CustomerAccountStore = InMemoryCustomerAccountStore(ConcurrentHashMap())
 }

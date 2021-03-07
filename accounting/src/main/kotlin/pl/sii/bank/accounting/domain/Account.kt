@@ -13,7 +13,7 @@ class Account(
         fun new(currency: Currency): Account =
             Account(
                 UUID.randomUUID(),
-                "IBAN",
+                "PL05103010587984495198645567",
                 currency
             )
 
