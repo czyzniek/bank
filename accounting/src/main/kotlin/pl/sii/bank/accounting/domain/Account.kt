@@ -10,10 +10,10 @@ class Account(
 ) {
 
     companion object Factory {
-        fun new(currency: Currency): Account =
+        fun create(iban: String, currency: Currency): Account =
             Account(
                 UUID.randomUUID(),
-                "PL05103010587984495198645567",
+                iban,
                 currency
             )
 

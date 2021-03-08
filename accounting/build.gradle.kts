@@ -49,6 +49,7 @@ dependencies {
     }
     testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
     testImplementation("io.github.joke:spock-mockable:1.4.0")
+    testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 }
 
 dependencyManagement {

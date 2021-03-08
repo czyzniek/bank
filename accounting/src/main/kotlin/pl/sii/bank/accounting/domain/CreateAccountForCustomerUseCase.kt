@@ -4,11 +4,16 @@ import java.util.*
 
 class CreateAccountForCustomerUseCase(
     private val customerStore: CustomerStore,
+    private val externalAccountProvider: ExternalAccountProvider,
     private val eventPublisher: EventPublisher
 ) {
     fun execute(input: Input): Output? =
         customerStore.findById(input.customerId)?.let { foundCustomer ->
-            val account = Account.new(Currency.valueOf(input.currency))
+            val params = ExternalAccountProvider.CreateAccountParams(
+                foundCustomer.externalId, Currency.valueOf(input.currency)
+            )
+            val externalAccount = externalAccountProvider.create(params)
+            val account = Account.create(externalAccount.iban, externalAccount.currency)
             foundCustomer.accounts.add(account)
             customerStore.save(foundCustomer)
             eventPublisher.sendAccountCreatedEvent(

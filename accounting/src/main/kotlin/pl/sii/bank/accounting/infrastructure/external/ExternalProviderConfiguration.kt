@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import pl.sii.bank.accounting.domain.ExternalAccountProvider
 import pl.sii.bank.accounting.domain.ExternalCustomerProvider
 
 @Configuration
@@ -14,4 +15,12 @@ class ExternalProviderConfiguration(
     @Bean
     fun bankExternalCustomerProvider(restTemplateBuilder: RestTemplateBuilder): ExternalCustomerProvider =
         BankExternalCustomerProvider(restTemplateBuilder.rootUri(bankProviderUrl).build())
+
+    @Bean
+    fun bankExternalAccountProvider(restTemplateBuilder: RestTemplateBuilder): ExternalAccountProvider =
+        BankExternalAccountProvider(restTemplateBuilder.rootUri(bankProviderUrl).build())
+
+    @Bean
+    fun bankExternalAccountBalanceProvier(restTemplateBuilder: RestTemplateBuilder): BankExternalAccountBalanceProvider =
+        BankExternalAccountBalanceProvider(restTemplateBuilder.rootUri(bankProviderUrl).build())
 }

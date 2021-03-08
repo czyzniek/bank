@@ -1,12 +1,12 @@
 package pl.sii.bank.accounting.infrastructure
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import pl.sii.bank.accounting.domain.*
+import pl.sii.bank.accounting.infrastructure.external.BankExternalAccountBalanceProvider
 import pl.sii.bank.accounting.infrastructure.store.AccountRepository
-import pl.sii.bank.accounting.infrastructure.store.BankProviderAccountBalanceStore
+import pl.sii.bank.accounting.infrastructure.store.InMemoryAccountBalanceStore
 
 @Configuration
 class AccountingConfiguration(
@@ -27,18 +27,19 @@ class AccountingConfiguration(
     @Bean
     fun createAccountForCustomerUseCase(
         customerStore: CustomerStore,
+        externalAccountProvider: ExternalAccountProvider,
         eventPublisher: EventPublisher
     ) =
-        CreateAccountForCustomerUseCase(customerStore, eventPublisher)
+        CreateAccountForCustomerUseCase(customerStore, externalAccountProvider, eventPublisher)
 
     @Bean
     fun fetchAccountBalanceUseCase(
         accountRepository: AccountRepository,
-        restTemplateBuilder: RestTemplateBuilder
+        bankExternalAccountBalanceProvider: BankExternalAccountBalanceProvider
     ): FetchAccountBalanceUseCase {
-        val accountBalanceStore = BankProviderAccountBalanceStore(
+        val accountBalanceStore = InMemoryAccountBalanceStore(
             accountRepository,
-            restTemplateBuilder.rootUri(bankProviderUrl).build()
+            bankExternalAccountBalanceProvider
         )
         return FetchAccountBalanceUseCase(accountBalanceStore)
     }
