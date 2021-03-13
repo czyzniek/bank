@@ -24,6 +24,6 @@ class TransactionConfiguration {
         FetchTransactionStatusUseCase(transactionStore)
 
     @Bean
-    fun saveCustomerAccountUseCase(): SaveCustomerAccountUseCase =
-        SaveCustomerAccountUseCase()
+    fun saveCustomerAccountUseCase(customerAccountStore: CustomerAccountStore): SaveCustomerAccountUseCase =
+        SaveCustomerAccountUseCase(customerAccountStore)
 }

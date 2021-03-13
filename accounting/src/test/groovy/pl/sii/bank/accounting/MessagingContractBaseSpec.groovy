@@ -31,6 +31,7 @@ abstract class MessagingContractBaseSpec extends Specification {
         findById(_ as UUID) >> { UUID customerId ->
             new Customer(
                 CUSTOMER_ID,
+                UUID.randomUUID(),
                 "Zenon",
                 "Nowak",
                 LocalDate.of(1990, 11, 23),
@@ -41,6 +42,17 @@ abstract class MessagingContractBaseSpec extends Specification {
                         Currency.PLN
                     )
                 ]
+            )
+        }
+    }
+
+    @SpringBean
+    ExternalAccountProvider accountProvider = Stub() {
+        create(_ as ExternalAccountProvider.CreateAccountParams) >> { ExternalAccountProvider.CreateAccountParams params ->
+            new ExternalAccountProvider.ExternalAccount(
+                UUID.randomUUID(),
+                "PL59857010120635280879451363",
+                params.currency
             )
         }
     }

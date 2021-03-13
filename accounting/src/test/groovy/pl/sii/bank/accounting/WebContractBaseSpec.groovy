@@ -38,14 +38,13 @@ abstract class WebContractBaseSpec extends Specification {
                     "Zenon",
                     "Nowak",
                     LocalDate.of(1990, 11, 23),
-                    []
-//                    [
-//                        new Account(
-//                            UUID.randomUUID(),
-//                            "PL76124043444059417722471077",
-//                            Currency.PLN
-//                        )
-//                    ]
+                    [
+                        new Account(
+                            UUID.randomUUID(),
+                            "PL76124043444059417722471077",
+                            Currency.PLN
+                        )
+                    ]
                 )
             ])
     }
