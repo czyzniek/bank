@@ -12,6 +12,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 

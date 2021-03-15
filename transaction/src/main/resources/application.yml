@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8083
 
 spring:
   cloud:
@@ -19,3 +19,5 @@ spring:
                 username: rabbitmq
                 password: rabbitmq
                 virtual-host: /
+
+bank.provider.url: http://localhost:8082

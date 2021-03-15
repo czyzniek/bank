@@ -12,7 +12,8 @@ class Transaction(
     val note: String?,
     var status: TransactionStatus,
     val createdAt: Instant,
-    var authorizedAt: Instant?
+    var authorizedAt: Instant?,
+    var submittedTransferId: UUID?
 ) {
 
     companion object Factory {
@@ -25,6 +26,7 @@ class Transaction(
                 command.note,
                 TransactionStatus.INITIALIZED,
                 Instant.now(),
+                null,
                 null
             )
     }
