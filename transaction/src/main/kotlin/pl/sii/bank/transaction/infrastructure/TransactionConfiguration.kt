@@ -12,8 +12,8 @@ class TransactionConfiguration {
         InitializeTransactionUseCase(transactionStore)
 
     @Bean
-    fun confirmTransactionUseCase(transactionStore: TransactionStore): ConfirmTransactionUseCase =
-        ConfirmTransactionUseCase(transactionStore)
+    fun confirmTransactionUseCase(transactionStore: TransactionStore, accountBalanceStore: AccountBalanceStore): ConfirmTransactionUseCase =
+        ConfirmTransactionUseCase(transactionStore, accountBalanceStore)
 
     @Bean
     fun authorizeTransactionUseCase(
