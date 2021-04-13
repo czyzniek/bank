@@ -26,7 +26,7 @@ import java.time.LocalDate
 import java.util.*
 
 @SpringBootTest(
-    classes = [AccountingApplication::class, MessagingContractTestBase.ContractConfiguration::class],
+    classes = [AccountingApplication::class],
     webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @AutoConfigureMessageVerifier
@@ -36,55 +36,15 @@ open class MessagingContractTestBase {
     private val CUSTOMER_ID: UUID = UUID.randomUUID()
 
     @Autowired
-    private lateinit var createAccountForCustomerUseCase: CreateAccountForCustomerUseCase
+    private lateinit var eventPublisher: EventPublisher
 
     fun accountCreatedTriggered() {
-        val input = CreateAccountForCustomerUseCase.Input(CUSTOMER_ID, "EUR")
-        createAccountForCustomerUseCase.execute(input)
-    }
-
-    @TestConfiguration
-    class ContractConfiguration {
-
-        val savedCustomer = slot<Customer>()
-        val customerId = slot<UUID>()
-        val createAccountParams = slot<ExternalAccountProvider.CreateAccountParams>()
-
-        @Bean
-        @Primary
-        fun testCustomerStore(): CustomerStore =
-            mockk {
-                every { save(capture(savedCustomer)) } answers { savedCustomer.captured }
-
-                every { findById(capture(customerId)) } answers {
-                    Customer(
-                        customerId.captured,
-                        UUID.randomUUID(),
-                        "Zenon",
-                        "Nowak",
-                        LocalDate.of(1990, 11, 23),
-                        mutableListOf(
-                            Account(
-                                UUID.randomUUID(),
-                                "PL76124043444059417722471077",
-                                Currency.PLN
-                            )
-                        )
-                    )
-                }
-            }
-
-        @Bean
-        @Primary
-        fun testAccountProvider(): ExternalAccountProvider =
-            mockk {
-                every { create(capture(createAccountParams)) } answers {
-                    ExternalAccountProvider.ExternalAccount(
-                        UUID.randomUUID(),
-                        "PL59857010120635280879451363",
-                        createAccountParams.captured.currency
-                    )
-                }
-            }
+        val accountCratedEvent = EventPublisher.AccountCreated(
+            UUID.randomUUID(),
+            "PL76124043444059417722471077",
+            Currency.PLN,
+            CUSTOMER_ID
+        )
+        eventPublisher.sendAccountCreatedEvent(accountCratedEvent)
     }
 }
