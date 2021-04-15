@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description 'should create customer'
+    description 'should create account for customer with given currency'
 
     request {
         method POST()
