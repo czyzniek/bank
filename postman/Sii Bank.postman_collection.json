@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "2ca1b47a-2e11-4445-8e6f-7a1b07e6311b",
+		"name": "Sii Bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "setup",
+			"item": [
+				{
+					"name": "Create first customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response contains UUID created customer\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.customerId).to.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);",
+									"",
+									"    pm.environment.set(\"firstCustomerId\", jsonData.customerId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Kamil\",\n\t\"lastName\": \"Czyżnielewski\",\n\t\"birthDate\": \"1990-11-23\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountingHost}}/customers",
+							"host": [
+								"{{accountingHost}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create account for first customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response contains UUID created account\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.accountId).to.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);",
+									"",
+									"    pm.environment.set(\"firstCustomerAccountId\", jsonData.accountId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currency\": \"PLN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountingHost}}/customers/:customerId/accounts",
+							"host": [
+								"{{accountingHost}}"
+							],
+							"path": [
+								"customers",
+								":customerId",
+								"accounts"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "{{firstCustomerId}}",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create second customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response contains UUID created customer\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.customerId).to.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);",
+									"",
+									"    pm.environment.set(\"secondCustomerId\", jsonData.customerId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Kamil\",\n\t\"lastName\": \"Czyżnielewski\",\n\t\"birthDate\": \"1990-11-23\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountingHost}}/customers",
+							"host": [
+								"{{accountingHost}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create account for second customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response contains UUID created account\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.accountId).to.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);",
+									"",
+									"    pm.environment.set(\"secondCustomerAccountId\", jsonData.accountId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currency\": \"PLN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountingHost}}/customers/:customerId/accounts",
+							"host": [
+								"{{accountingHost}}"
+							],
+							"path": [
+								"customers",
+								":customerId",
+								"accounts"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "{{secondCustomerId}}",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Kamil\",\n\t\"lastName\": \"Czyżnielewski\",\n\t\"birthDate\": \"1990-11-23\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{accountingHost}}/customers",
+					"host": [
+						"{{accountingHost}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account for Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"currency\": \"PLN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{accountingHost}}/customers/:customerId/accounts",
+					"host": [
+						"{{accountingHost}}"
+					],
+					"path": [
+						"customers",
+						":customerId",
+						"accounts"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "b33fee17-d331-4dea-89b8-8d2947a32628",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Account balance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{accountingHost}}/accounts/:accountId/balance",
+					"host": [
+						"{{accountingHost}}"
+					],
+					"path": [
+						"accounts",
+						":accountId",
+						"balance"
+					],
+					"variable": [
+						{
+							"key": "accountId",
+							"value": "0f68cb1c-3db6-46bd-8ae3-4eead97c915c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[BankProvider] Fetch Account balance",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{bankProviderHost}}/api/accounts/:accountIban/balance",
+					"host": [
+						"{{bankProviderHost}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						":accountIban",
+						"balance"
+					],
+					"variable": [
+						{
+							"key": "accountIban",
+							"value": "PL05103010587984495198645567"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Initiate transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response contains UUID created transaction\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.transactionId).to.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);",
+							"",
+							"    pm.environment.set(\"transactionId\", jsonData.transactionId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"targetAccount\": \"{{secondCustomerAccountId}}\",\n    \"money\": {\n        \"amount\": 100,\n        \"currency\": \"PLN\"\n    },\n    \"note\": \"Za drinki\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{transactionHost}}/transactions",
+					"host": [
+						"{{transactionHost}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sourceAccount\": \"{{firstCustomerAccountId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{transactionHost}}/transactions/:transactionId/confirm",
+					"host": [
+						"{{transactionHost}}"
+					],
+					"path": [
+						"transactions",
+						":transactionId",
+						"confirm"
+					],
+					"variable": [
+						{
+							"key": "transactionId",
+							"value": "{{transactionId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorize transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{transactionHost}}/transactions/:transactionId/authorize",
+					"host": [
+						"{{transactionHost}}"
+					],
+					"path": [
+						"transactions",
+						":transactionId",
+						"authorize"
+					],
+					"variable": [
+						{
+							"key": "transactionId",
+							"value": "{{transactionId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch transaction status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{transactionHost}}/transactions/:transactionId/status",
+					"host": [
+						"{{transactionHost}}"
+					],
+					"path": [
+						"transactions",
+						":transactionId",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "transactionId",
+							"value": "{{transactionId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
