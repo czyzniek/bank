@@ -12,15 +12,16 @@ class TransactionConfiguration {
         InitializeTransactionUseCase(transactionStore)
 
     @Bean
-    fun confirmTransactionUseCase(transactionStore: TransactionStore): ConfirmTransactionUseCase =
-        ConfirmTransactionUseCase(transactionStore)
+    fun confirmTransactionUseCase(transactionStore: TransactionStore, accountBalanceStore: AccountBalanceStore): ConfirmTransactionUseCase =
+        ConfirmTransactionUseCase(transactionStore, accountBalanceStore)
 
     @Bean
     fun authorizeTransactionUseCase(
         transactionStore: TransactionStore,
+        customerAccountStore: CustomerAccountStore,
         externalTransferProvider: ExternalTransferProvider
     ): AuthorizeTransactionUseCase =
-        AuthorizeTransactionUseCase(transactionStore, externalTransferProvider)
+        AuthorizeTransactionUseCase(transactionStore, customerAccountStore, externalTransferProvider)
 
     @Bean
     fun fetchTransactionStatusUseCase(transactionStore: TransactionStore): FetchTransactionStatusUseCase =

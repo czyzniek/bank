@@ -1,0 +1,45 @@
+@startuml
+
+actor "First user" as FU
+actor "Second user" as SU
+participant "Sii Bank" as BE
+participant "Bank provider" as BP
+
+
+FU -> BE : init Transaction
+note right
+{
+    "targetAccount": //UUID//,
+    "money": {
+        "amount": 100,
+        "currency": "PLN"
+    },
+    "note": "Za drinki"
+}
+end note
+return 201 CREATED
+note left
+{
+    transactionId : //UUID//
+}
+end note
+
+FU -> SU : pass transactionId
+note right of FU
+Tutaj w jakiś sposób
+przekazujemy drugiemu
+użytkownikowi //transactionId//
+end note
+
+SU -> BE : confirm Transaction
+note right
+{
+    sourceAccount : //UUID//
+}
+end note
+return 204 NO CONTENT
+SU -> BE : authorize Transaction
+BE -> BP : submit transfer
+BE --> SU : 204 NO CONTENT
+
+@enduml

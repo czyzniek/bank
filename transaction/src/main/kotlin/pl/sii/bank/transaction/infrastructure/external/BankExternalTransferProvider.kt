@@ -1,17 +1,24 @@
 package pl.sii.bank.transaction.infrastructure.external
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
+import pl.sii.bank.transaction.domain.AuthorizeTransactionUseCase
 import pl.sii.bank.transaction.domain.ExternalTransferProvider
 import java.math.BigDecimal
 import java.util.*
 
-class BankExternalTransferProvider(private val restTemplate: RestTemplate) : ExternalTransferProvider {
+class BankExternalTransferProvider(
+    private val restTemplate: RestTemplate,
+    private val log: Logger = LoggerFactory.getLogger(BankExternalTransferProvider::class.java)
+) : ExternalTransferProvider {
     override fun submitTransfer(params: ExternalTransferProvider.SubmitTransferParams): ExternalTransferProvider.Result {
+        log.info("Submitting transfer to bank provider")
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_XML
         val httpEntity =
@@ -21,6 +28,7 @@ class BankExternalTransferProvider(private val restTemplate: RestTemplate) : Ext
             httpEntity,
             BankProviderTransferResponse::class
         )
+        log.info("Transfer submitted {}", response.id)
         return ExternalTransferProvider.Result(response.id)
     }
 

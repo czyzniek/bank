@@ -1,21 +1,26 @@
 package pl.sii.bank.transaction.domain
 
 import java.util.*
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class AuthorizeTransactionUseCase(
     private val transactionStore: TransactionStore,
     private val customerAccountStore: CustomerAccountStore,
-    private val externalTransferProvider: ExternalTransferProvider
+    private val externalTransferProvider: ExternalTransferProvider,
+    private val log: Logger = LoggerFactory.getLogger(AuthorizeTransactionUseCase::class.java)
 ) {
-
     fun execute(input: Input): Output {
+        log.info("Authorizing transaction with id {}", input.transactionId)
         val authorizedTransaction = transactionStore.find(input.transactionId)
             ?.authorize()
             ?.apply {
+                log.info("Submitting transaction {} to external provider", input.transactionId)
                 val submittedTransferId = submitTransactionToExternalProvider(this)
                 this.submittedTransferId = submittedTransferId
             }
             ?.apply {
+                log.info("Saving authorized transaction {}", input.transactionId)
                 transactionStore.save(this)
             }
         return Output(authorizedTransaction != null)

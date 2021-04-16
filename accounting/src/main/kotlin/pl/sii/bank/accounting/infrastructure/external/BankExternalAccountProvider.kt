@@ -1,16 +1,22 @@
 package pl.sii.bank.accounting.infrastructure.external
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
+import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
 import pl.sii.bank.accounting.domain.Currency
 import pl.sii.bank.accounting.domain.ExternalAccountProvider
 import java.util.*
 
-class BankExternalAccountProvider(private val restTemplate: RestTemplate) : ExternalAccountProvider {
+class BankExternalAccountProvider(
+    private val restTemplate: RestTemplate,
+    private val log: Logger = LoggerFactory.getLogger(BankExternalAccountProvider::class.java)
+) : ExternalAccountProvider {
     override fun create(params: ExternalAccountProvider.CreateAccountParams): ExternalAccountProvider.ExternalAccount {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_XML
@@ -21,6 +27,7 @@ class BankExternalAccountProvider(private val restTemplate: RestTemplate) : Exte
             httpEntity,
             BankProviderAccountResponse::class
         )
+        log.info("Account created in bank provider")
         return ExternalAccountProvider.ExternalAccount(response.id, response.iban, response.currency)
     }
 

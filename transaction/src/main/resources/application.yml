@@ -21,3 +21,4 @@ spring:
                 virtual-host: /
 
 bank.provider.url: http://localhost:8082
+accounting.url: http://localhost:8081

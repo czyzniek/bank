@@ -1,10 +1,17 @@
 package pl.sii.bank.transaction.domain
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import pl.sii.bank.transaction.infrastructure.event.EventSubscriber
 import java.util.*
 
-class SaveCustomerAccountUseCase(private val customerAccountStore: CustomerAccountStore) {
+class SaveCustomerAccountUseCase(
+    private val customerAccountStore: CustomerAccountStore,
+    private val log: Logger = LoggerFactory.getLogger(EventSubscriber::class.java)
+) {
 
     fun execute(input: Input): Output {
+        log.info("Saving newly created account for customer {}", input.customerId)
         val customerAccount = input.toDomain()
         customerAccountStore.save(customerAccount)
         return Output(true)

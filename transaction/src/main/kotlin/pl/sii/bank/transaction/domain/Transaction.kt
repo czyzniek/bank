@@ -33,6 +33,11 @@ class Transaction(
 
     fun confirm(command: ConfirmTransaction): Transaction =
         apply {
+            if (command.fromAccountBalance.currency != money.currency
+                || command.fromAccountBalance.amount.compareTo(money.amount) == -1) {
+                throw IllegalStateException("Account does not have enough money!")
+            }
+
             fromAccount = command.fromAccount
             status = TransactionStatus.CONFIRMED
         }
@@ -64,5 +69,6 @@ data class InitializeTransaction(
 )
 
 data class ConfirmTransaction(
-    val fromAccount: UUID
+    val fromAccount: UUID,
+    val fromAccountBalance: MonetaryValue
 )
