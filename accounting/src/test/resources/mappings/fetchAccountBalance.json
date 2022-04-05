@@ -1,0 +1,19 @@
+{
+  "id": "e2928823-d4c2-4c6b-aee8-d9665fccda15",
+  "request": {
+    "urlPattern": "/api/accounts/[A-Z]{2}[A-Z0-9]{11,32}/balance",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "\n            <balance>\n                <amount>12345.67</amount>\n                <currency>PLN</currency>\n            </balance>\n        ",
+    "headers": {
+      "Content-Type": "application/xml"
+    },
+    "transformers": [
+      "response-template",
+      "spring-cloud-contract"
+    ]
+  },
+  "uuid": "e2928823-d4c2-4c6b-aee8-d9665fccda15"
+}

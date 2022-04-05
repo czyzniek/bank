@@ -1,3 +1,0 @@
-stubrunner:
-  ids: 'pl.sii.bank:bank-provider:+:stubs:8082'
-  stubs-mode: local

@@ -1,0 +1,44 @@
+{
+  "id": "636a7e47-ad19-4d43-ade5-dae4320f15e9",
+  "request": {
+    "url": "/api/customers",
+    "method": "POST",
+    "headers": {
+      "Content-Type": {
+        "matches": "application/xml.*"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesXPath": {
+          "expression": "/customer/firstName/text()",
+          "matches": "^\\s*\\S[\\S\\s]*"
+        }
+      },
+      {
+        "matchesXPath": {
+          "expression": "/customer/lastName/text()",
+          "matches": "^\\s*\\S[\\S\\s]*"
+        }
+      },
+      {
+        "matchesXPath": {
+          "expression": "/customer/birthDate/text()",
+          "matches": "(\\d\\d\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "body": "\n<customer>\n    <id>7a1bba58-9a5a-4688-8afd-7dfc05665aea</id>\n</customer>\n",
+    "headers": {
+      "Content-Type": "application/xml"
+    },
+    "transformers": [
+      "response-template",
+      "spring-cloud-contract"
+    ]
+  },
+  "uuid": "636a7e47-ad19-4d43-ade5-dae4320f15e9"
+}
