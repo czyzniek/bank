@@ -1,0 +1,32 @@
+{
+  "id": "b8f3710a-c13f-43f4-8be1-62fb0250427c",
+  "request": {
+    "urlPattern": "/api/customers/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/accounts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": {
+        "matches": "application/xml.*"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesXPath": {
+          "expression": "/account/currency/text()",
+          "matches": "PLN|USD|EUR"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "body": "\n            <account>\n                <id>b20997ba-34de-42d1-b00b-907bb6e258fb</id>\n                <iban>PL71147010414407315781808829</iban>\n                <currency>PLN</currency>\n            </account>\n        ",
+    "headers": {
+      "Content-Type": "application/xml"
+    },
+    "transformers": [
+      "response-template",
+      "spring-cloud-contract"
+    ]
+  },
+  "uuid": "b8f3710a-c13f-43f4-8be1-62fb0250427c"
+}

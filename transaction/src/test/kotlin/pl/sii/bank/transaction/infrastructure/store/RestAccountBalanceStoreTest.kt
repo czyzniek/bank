@@ -5,21 +5,24 @@ import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
-import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
-import org.springframework.test.context.TestPropertySource
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration
 import pl.sii.bank.transaction.domain.Currency.*
 import java.math.BigDecimal
 import java.util.*
 
-@ExtendWith(SoftAssertionsExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@AutoConfigureStubRunner(
-    ids = ["pl.sii.bank:accounting:+:stubs:9090"],
-    stubsMode = StubRunnerProperties.StubsMode.LOCAL
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = [
+        "bank.provider.url=http://localhost:\${wiremock.server.port}",
+        "accounting.url=http://localhost:\${wiremock.server.port}"
+    ]
 )
-@TestPropertySource(properties = ["accounting.url=http://localhost:9090"])
+@AutoConfigureWireMock(port = 0)
+@ImportAutoConfiguration(TestChannelBinderConfiguration::class)
+@ExtendWith(SoftAssertionsExtension::class)
 class RestAccountBalanceStoreTest {
 
     @Test

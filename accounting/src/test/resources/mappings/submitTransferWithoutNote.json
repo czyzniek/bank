@@ -1,0 +1,50 @@
+{
+  "id": "9bdae6d6-193f-4b5a-9406-689ab5bcd2f0",
+  "request": {
+    "urlPattern": "/api/transfers",
+    "method": "POST",
+    "headers": {
+      "Content-Type": {
+        "matches": "application/xml.*"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesXPath": {
+          "expression": "/transfer/from/text()",
+          "matches": "[A-Z]{2}[A-Z0-9]{11,32}"
+        }
+      },
+      {
+        "matchesXPath": {
+          "expression": "/transfer/to/text()",
+          "matches": "[A-Z]{2}[A-Z0-9]{11,32}"
+        }
+      },
+      {
+        "matchesXPath": {
+          "expression": "/transfer/amount/text()",
+          "matches": "-?(\\d*\\.\\d+|\\d+)"
+        }
+      },
+      {
+        "matchesXPath": {
+          "expression": "/transfer/currency/text()",
+          "matches": "PLN|USD|EUR"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "body": "\n            <transfer>\n                <id>8752dbde-2528-47a0-b7cf-968a93e3f109</id>\n            </transfer>\n        ",
+    "headers": {
+      "Content-Type": "application/xml"
+    },
+    "transformers": [
+      "response-template",
+      "spring-cloud-contract"
+    ]
+  },
+  "uuid": "9bdae6d6-193f-4b5a-9406-689ab5bcd2f0"
+}
