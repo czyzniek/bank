@@ -1,17 +1,21 @@
 package pl.sii.bank.accounting.infrastructure
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import pl.sii.bank.accounting.domain.*
+import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
+import pl.sii.bank.accounting.domain.CreateCustomerUserCase
+import pl.sii.bank.accounting.domain.CustomerStore
+import pl.sii.bank.accounting.domain.EventPublisher
+import pl.sii.bank.accounting.domain.ExternalAccountProvider
+import pl.sii.bank.accounting.domain.ExternalCustomerProvider
+import pl.sii.bank.accounting.domain.FetchAccountBalanceUseCase
+import pl.sii.bank.accounting.domain.FetchAllCustomersUseCase
 import pl.sii.bank.accounting.infrastructure.external.BankExternalAccountBalanceProvider
 import pl.sii.bank.accounting.infrastructure.store.AccountRepository
 import pl.sii.bank.accounting.infrastructure.store.InMemoryAccountBalanceStore
 
 @Configuration
-class AccountingConfiguration(
-    @Value("\${bank.provider.url}") private val bankProviderUrl: String
-) {
+class AccountingConfiguration {
 
     @Bean
     fun createCustomerUseCase(

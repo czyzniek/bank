@@ -16,29 +16,29 @@ Contract.make {
         body(
             customers: [
                 [
-                    id: "cd863f1f-a3c5-4b93-9fe7-572e00df6783",
+                    id       : "cd863f1f-a3c5-4b93-9fe7-572e00df6783",
                     firstName: "Zenon",
-                    lastName: "Nowak",
+                    lastName : "Nowak",
                     birthDate: "1989-10-02",
-                    accounts: [
+                    accounts : [
                         [
-                            id: "99027286-95f6-41f2-8b5c-57674e249e4e",
-                            iban: "PL65124035237724260404434622",
+                            id      : "99027286-95f6-41f2-8b5c-57674e249e4e",
+                            iban    : "PL65124035237724260404434622",
                             currency: "PLN"
                         ],
                         [
-                            id: "58fad162-efc0-4eae-8175-b2707276c3ba",
-                            iban: "PL16845610198388776832799509",
+                            id      : "58fad162-efc0-4eae-8175-b2707276c3ba",
+                            iban    : "PL16845610198388776832799509",
                             currency: "EUR"
                         ]
                     ]
                 ],
                 [
-                    id: "522480e9-6ec7-49d9-a400-c90fa283caf6",
+                    id       : "522480e9-6ec7-49d9-a400-c90fa283caf6",
                     firstName: "Jan",
-                    lastName: "Pustak",
+                    lastName : "Pustak",
                     birthDate: "1979-07-12",
-                    accounts: []
+                    accounts : []
                 ]
             ]
         )

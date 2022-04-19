@@ -3,7 +3,7 @@ package pl.sii.bank.accounting.infrastructure.store
 import pl.sii.bank.accounting.domain.AccountBalanceStore
 import pl.sii.bank.accounting.domain.Money
 import pl.sii.bank.accounting.infrastructure.external.BankExternalAccountBalanceProvider
-import java.util.*
+import java.util.UUID
 
 class InMemoryAccountBalanceStore(
     private val accountRepository: AccountRepository,

@@ -4,7 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import pl.sii.bank.transaction.domain.Currency
 import pl.sii.bank.transaction.domain.SaveCustomerAccountUseCase
-import java.util.*
+import java.util.UUID
 import java.util.function.Consumer
 
 class EventSubscriber(

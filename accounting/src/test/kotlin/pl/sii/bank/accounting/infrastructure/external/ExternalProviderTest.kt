@@ -12,7 +12,6 @@ import org.springframework.cloud.stream.binder.test.TestChannelBinderConfigurati
 import pl.sii.bank.accounting.domain.ExternalCustomerProvider
 import java.time.LocalDate
 
-
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.NONE,
     properties = ["bank.provider.url=http://localhost:\${wiremock.server.port}"]
@@ -20,24 +19,22 @@ import java.time.LocalDate
 @AutoConfigureWireMock(port = 0)
 @ImportAutoConfiguration(TestChannelBinderConfiguration::class)
 @ExtendWith(SoftAssertionsExtension::class)
-class ExternalProviderTest() {
+class ExternalProviderTest {
 
     @Test
     fun `should create customer in external provider`(
         @Autowired customerProvider: BankExternalCustomerProvider,
         softly: SoftAssertions
     ) {
-        //given
+        // given
         val params = ExternalCustomerProvider.CreateCustomerParams(
-            "Zenon",
-            "Nowak",
-            LocalDate.of(1990, 11, 23)
+            "Zenon", "Nowak", LocalDate.of(1990, 11, 23)
         )
 
-        //when
+        // when
         val response = customerProvider.create(params)
 
-        //then
+        // then
         softly.assertThat(response.id).isNotNull
         softly.assertThat(response.firstName).isEqualTo("Zenon")
         softly.assertThat(response.lastName).isEqualTo("Nowak")

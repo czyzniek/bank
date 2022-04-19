@@ -1,7 +1,7 @@
 package pl.sii.bank.accounting.domain
 
 import pl.sii.bank.accounting.infrastructure.store.AccountEntity
-import java.util.*
+import java.util.UUID
 
 class Account(
     val id: UUID,
@@ -25,4 +25,3 @@ class Account(
             )
     }
 }
-

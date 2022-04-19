@@ -17,7 +17,7 @@ Contract.make {
                 test("c992a432-3082-4d08-9f0a-8e2e11e29718")
             ),
             money: [
-                amount: $(
+                amount  : $(
                     stub(anyNumber()),
                     test("1000.00")
                 ),

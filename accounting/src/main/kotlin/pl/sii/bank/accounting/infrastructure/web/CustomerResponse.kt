@@ -3,7 +3,7 @@ package pl.sii.bank.accounting.infrastructure.web
 import com.fasterxml.jackson.annotation.JsonFormat
 import pl.sii.bank.accounting.domain.Currency
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 data class CustomerResponse(
     val id: UUID,

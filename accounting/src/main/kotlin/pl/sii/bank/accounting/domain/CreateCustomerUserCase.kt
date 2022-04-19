@@ -3,7 +3,7 @@ package pl.sii.bank.accounting.domain
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 class CreateCustomerUserCase(
     private val customerStore: CustomerStore,

@@ -2,7 +2,7 @@ package pl.sii.bank.accounting.domain
 
 import pl.sii.bank.accounting.infrastructure.store.CustomerEntity
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 class Customer(
     val id: UUID,

@@ -1,6 +1,6 @@
 package pl.sii.bank.transaction.domain
 
-import java.util.*
+import java.util.UUID
 
 class FetchTransactionStatusUseCase(private val transactionStore: TransactionStore) {
 
@@ -9,7 +9,6 @@ class FetchTransactionStatusUseCase(private val transactionStore: TransactionSto
             ?.let {
                 Output(it.status)
             }
-
 
     data class Input(
         val transactionId: UUID

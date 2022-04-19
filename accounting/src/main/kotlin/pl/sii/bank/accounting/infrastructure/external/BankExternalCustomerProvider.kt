@@ -1,14 +1,14 @@
 package pl.sii.bank.accounting.infrastructure.external
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.time.LocalDate
+import java.util.UUID
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
 import pl.sii.bank.accounting.domain.ExternalCustomerProvider
-import java.time.LocalDate
-import java.util.*
 
 class BankExternalCustomerProvider(private val restTemplate: RestTemplate) : ExternalCustomerProvider {
     override fun create(params: ExternalCustomerProvider.CreateCustomerParams): ExternalCustomerProvider.ExternalCustomer {

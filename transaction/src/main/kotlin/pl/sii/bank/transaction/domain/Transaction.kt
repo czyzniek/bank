@@ -2,7 +2,7 @@ package pl.sii.bank.transaction.domain
 
 import java.math.BigDecimal
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 class Transaction(
     val id: UUID,
@@ -33,8 +33,9 @@ class Transaction(
 
     fun confirm(command: ConfirmTransaction): Transaction =
         apply {
-            if (command.fromAccountBalance.currency != money.currency
-                || command.fromAccountBalance.amount.compareTo(money.amount) == -1) {
+            if (command.fromAccountBalance.currency != money.currency ||
+                command.fromAccountBalance.amount.compareTo(money.amount) == -1
+            ) {
                 throw IllegalStateException("Account does not have enough money!")
             }
 

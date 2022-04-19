@@ -8,10 +8,9 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
-import pl.sii.bank.transaction.domain.AuthorizeTransactionUseCase
 import pl.sii.bank.transaction.domain.ExternalTransferProvider
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 
 class BankExternalTransferProvider(
     private val restTemplate: RestTemplate,
