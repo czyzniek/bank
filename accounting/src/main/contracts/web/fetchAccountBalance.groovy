@@ -19,7 +19,7 @@ Contract.make {
         body(
             accountId: fromRequest().path(1),
             balance: [
-                amount: $(
+                amount  : $(
                     stub("1000.00"),
                     test(regex("[1-9][0-9]{0,10}|0\\.0[1-9]|0\\.[1-9][0-9]?|[1-9][0-9]{0,10}\\.[0-9]{1,2}"))
                 ),

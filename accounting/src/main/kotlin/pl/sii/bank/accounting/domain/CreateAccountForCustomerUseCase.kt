@@ -2,7 +2,7 @@ package pl.sii.bank.accounting.domain
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.util.UUID
 
 class CreateAccountForCustomerUseCase(
     private val customerStore: CustomerStore,

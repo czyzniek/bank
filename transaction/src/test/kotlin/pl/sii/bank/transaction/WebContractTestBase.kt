@@ -9,9 +9,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
-import pl.sii.bank.transaction.domain.*
+import pl.sii.bank.transaction.domain.AuthorizeTransactionUseCase
+import pl.sii.bank.transaction.domain.ConfirmTransactionUseCase
+import pl.sii.bank.transaction.domain.FetchTransactionStatusUseCase
+import pl.sii.bank.transaction.domain.InitializeTransactionUseCase
+import pl.sii.bank.transaction.domain.TransactionStatus
 import pl.sii.bank.transaction.infrastructure.web.TransactionController
-import java.util.*
+import java.util.UUID
 
 @WebMvcTest(controllers = [TransactionController::class])
 @Import(WebContractTestBase.ContractConfiguration::class)

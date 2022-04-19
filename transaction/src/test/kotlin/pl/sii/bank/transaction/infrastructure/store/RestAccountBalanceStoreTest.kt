@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration
-import pl.sii.bank.transaction.domain.Currency.*
+import pl.sii.bank.transaction.domain.Currency.EUR
+import pl.sii.bank.transaction.domain.Currency.PLN
+import pl.sii.bank.transaction.domain.Currency.USD
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.NONE,
@@ -30,13 +32,13 @@ class RestAccountBalanceStoreTest {
         @Autowired accountBalanceStore: RestAccountBalanceStore,
         softly: SoftAssertions
     ) {
-        //given
+        // given
         val accountId = UUID.randomUUID()
 
-        //when
+        // when
         val result = accountBalanceStore.fetchAccountBalance(accountId)
 
-        //then
+        // then
         softly.assertThat(result.accountId).isEqualTo(accountId)
         softly.assertThat(result.balance.amount).isGreaterThan(BigDecimal.ZERO)
         softly.assertThat(result.balance.currency).isIn(EUR, PLN, USD)

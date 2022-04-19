@@ -1,7 +1,5 @@
 import org.springframework.cloud.contract.spec.Contract
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-
 Contract.make {
     description "Should initialize transaction"
 

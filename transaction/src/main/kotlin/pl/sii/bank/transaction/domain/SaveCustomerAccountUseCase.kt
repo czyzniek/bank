@@ -3,7 +3,7 @@ package pl.sii.bank.transaction.domain
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import pl.sii.bank.transaction.infrastructure.event.EventSubscriber
-import java.util.*
+import java.util.UUID
 
 class SaveCustomerAccountUseCase(
     private val customerAccountStore: CustomerAccountStore,

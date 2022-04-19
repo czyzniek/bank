@@ -1,6 +1,6 @@
 package pl.sii.bank.accounting.infrastructure.store
 
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.ConcurrentMap
 
 class AccountRepository(private val db: ConcurrentMap<UUID, AccountEntity>) {

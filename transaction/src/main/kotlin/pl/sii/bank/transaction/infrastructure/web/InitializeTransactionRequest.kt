@@ -1,7 +1,7 @@
 package pl.sii.bank.transaction.infrastructure.web
 
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 
 data class InitializeTransactionRequest(
     val targetAccount: UUID,

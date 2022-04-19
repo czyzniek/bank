@@ -9,13 +9,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
-import pl.sii.bank.accounting.domain.*
+import pl.sii.bank.accounting.domain.Account
+import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
+import pl.sii.bank.accounting.domain.CreateCustomerUserCase
 import pl.sii.bank.accounting.domain.Currency
+import pl.sii.bank.accounting.domain.Customer
+import pl.sii.bank.accounting.domain.FetchAccountBalanceUseCase
+import pl.sii.bank.accounting.domain.FetchAllCustomersUseCase
+import pl.sii.bank.accounting.domain.Money
 import pl.sii.bank.accounting.infrastructure.web.AccountController
 import pl.sii.bank.accounting.infrastructure.web.CustomerController
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 @WebMvcTest(controllers = [CustomerController::class, AccountController::class])
 @Import(WebContractTestBase.ContractConfiguration::class)
@@ -23,6 +29,7 @@ open class WebContractTestBase {
 
     @Autowired
     private lateinit var customerController: CustomerController
+
     @Autowired
     private lateinit var accountController: AccountController
 

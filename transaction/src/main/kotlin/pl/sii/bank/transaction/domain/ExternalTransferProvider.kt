@@ -1,7 +1,7 @@
 package pl.sii.bank.transaction.domain
 
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 
 interface ExternalTransferProvider {
     fun submitTransfer(params: SubmitTransferParams): Result

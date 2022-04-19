@@ -1,8 +1,8 @@
 package pl.sii.bank.transaction.domain
 
-import java.util.*
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.util.UUID
 
 class AuthorizeTransactionUseCase(
     private val transactionStore: TransactionStore,

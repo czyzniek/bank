@@ -2,11 +2,16 @@ package pl.sii.bank.accounting.infrastructure.web
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
 import pl.sii.bank.accounting.domain.CreateCustomerUserCase
 import pl.sii.bank.accounting.domain.FetchAllCustomersUseCase
-import java.util.*
+import java.util.UUID
 
 @RestController
 class CustomerController(
@@ -32,10 +37,13 @@ class CustomerController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseStatus(HttpStatus.CREATED)
-    fun createAccountForCustomer(@PathVariable("customerId") customerId: UUID,
-                                 @RequestBody request: CreateAccountForCustomerRequest): Map<String, UUID> {
-        val output = createAccountForCustomerUseCase.execute(CreateAccountForCustomerUseCase.Input(customerId, request.currency))
-            ?: throw IllegalArgumentException("Could not find customer!")
+    fun createAccountForCustomer(
+        @PathVariable("customerId") customerId: UUID,
+        @RequestBody request: CreateAccountForCustomerRequest
+    ): Map<String, UUID> {
+        val output =
+            createAccountForCustomerUseCase.execute(CreateAccountForCustomerUseCase.Input(customerId, request.currency))
+                ?: throw IllegalArgumentException("Could not find customer!")
         return mapOf("accountId" to output.accountId)
     }
 
@@ -45,14 +53,16 @@ class CustomerController(
     )
     fun fetchAllCustomers(): Map<String, List<CustomerResponse>> {
         val output = fetchAllCustomersUseCase.execute()
-        return mapOf("customers" to output.customers.map { customer ->
-            CustomerResponse(
-                customer.id,
-                customer.firstName,
-                customer.lastName,
-                customer.birthDate,
-                customer.accounts.map { account -> AccountResponse(account.id, account.iban, account.currency) },
-            )
-        })
+        return mapOf(
+            "customers" to output.customers.map { customer ->
+                CustomerResponse(
+                    customer.id,
+                    customer.firstName,
+                    customer.lastName,
+                    customer.birthDate,
+                    customer.accounts.map { account -> AccountResponse(account.id, account.iban, account.currency) },
+                )
+            }
+        )
     }
 }

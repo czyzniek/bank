@@ -26,7 +26,7 @@ class ExternalProviderTest {
 
     @Test
     fun `should submit transfer to external provider`() {
-        //given
+        // given
         val params = ExternalTransferProvider.SubmitTransferParams(
             "PL78816910167843403528847785",
             "PL81124059186726861762149183",
@@ -35,10 +35,10 @@ class ExternalProviderTest {
             null
         )
 
-        //when
+        // when
         val result = externalTransferProvider.submitTransfer(params)
 
-        //then
+        // then
         assertThat(result.externalId).isNotNull()
     }
 }

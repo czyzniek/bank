@@ -1,7 +1,7 @@
 package pl.sii.bank.accounting.domain
 
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 interface ExternalCustomerProvider {
 

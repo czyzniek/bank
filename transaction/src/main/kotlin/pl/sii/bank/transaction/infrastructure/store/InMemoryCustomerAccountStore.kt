@@ -2,7 +2,7 @@ package pl.sii.bank.transaction.infrastructure.store
 
 import pl.sii.bank.transaction.domain.CustomerAccount
 import pl.sii.bank.transaction.domain.CustomerAccountStore
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.ConcurrentMap
 
 class InMemoryCustomerAccountStore(private val db: ConcurrentMap<UUID, CustomerAccount>) : CustomerAccountStore {

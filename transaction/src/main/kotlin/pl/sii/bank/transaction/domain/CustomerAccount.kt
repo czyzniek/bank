@@ -1,6 +1,6 @@
 package pl.sii.bank.transaction.domain
 
-import java.util.*
+import java.util.UUID
 
 data class CustomerAccount(
     val id: UUID,

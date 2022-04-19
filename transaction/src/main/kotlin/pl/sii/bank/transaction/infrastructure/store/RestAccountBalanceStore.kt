@@ -4,9 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.client.RestTemplate
 import pl.sii.bank.transaction.domain.AccountBalanceStore
-import pl.sii.bank.transaction.domain.ConfirmTransactionUseCase
-import java.util.*
-import kotlin.NoSuchElementException
+import java.util.UUID
 
 class RestAccountBalanceStore(
     private val restTemplate: RestTemplate,

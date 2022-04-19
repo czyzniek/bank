@@ -2,7 +2,15 @@ package pl.sii.bank.transaction.infrastructure
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import pl.sii.bank.transaction.domain.*
+import pl.sii.bank.transaction.domain.AccountBalanceStore
+import pl.sii.bank.transaction.domain.AuthorizeTransactionUseCase
+import pl.sii.bank.transaction.domain.ConfirmTransactionUseCase
+import pl.sii.bank.transaction.domain.CustomerAccountStore
+import pl.sii.bank.transaction.domain.ExternalTransferProvider
+import pl.sii.bank.transaction.domain.FetchTransactionStatusUseCase
+import pl.sii.bank.transaction.domain.InitializeTransactionUseCase
+import pl.sii.bank.transaction.domain.SaveCustomerAccountUseCase
+import pl.sii.bank.transaction.domain.TransactionStore
 
 @Configuration
 class TransactionConfiguration {
@@ -12,7 +20,10 @@ class TransactionConfiguration {
         InitializeTransactionUseCase(transactionStore)
 
     @Bean
-    fun confirmTransactionUseCase(transactionStore: TransactionStore, accountBalanceStore: AccountBalanceStore): ConfirmTransactionUseCase =
+    fun confirmTransactionUseCase(
+        transactionStore: TransactionStore,
+        accountBalanceStore: AccountBalanceStore
+    ): ConfirmTransactionUseCase =
         ConfirmTransactionUseCase(transactionStore, accountBalanceStore)
 
     @Bean

@@ -3,7 +3,7 @@ package pl.sii.bank.accounting.infrastructure.store
 import pl.sii.bank.accounting.domain.Account
 import pl.sii.bank.accounting.domain.Customer
 import pl.sii.bank.accounting.domain.CustomerStore
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.ConcurrentMap
 
 class InMemoryCustomerStore(

@@ -8,10 +8,9 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
-import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
 import pl.sii.bank.accounting.domain.Currency
 import pl.sii.bank.accounting.domain.ExternalAccountProvider
-import java.util.*
+import java.util.UUID
 
 class BankExternalAccountProvider(
     private val restTemplate: RestTemplate,
