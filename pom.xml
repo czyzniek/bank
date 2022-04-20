@@ -20,6 +20,7 @@
 
     <modules>
         <module>accounting</module>
+        <module>bank-provider</module>
         <module>transaction</module>
     </modules>
 
