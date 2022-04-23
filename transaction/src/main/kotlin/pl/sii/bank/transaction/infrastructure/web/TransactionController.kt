@@ -33,6 +33,7 @@ class TransactionController(
     @ResponseStatus(HttpStatus.CREATED)
     fun initializeTransaction(@RequestBody request: InitializeTransactionRequest): Map<String, UUID> {
         val input = InitializeTransactionUseCase.Input(
+            request.type,
             request.targetAccount,
             MonetaryValue(request.money.amount, Currency.valueOf(request.money.currency)),
             request.note
