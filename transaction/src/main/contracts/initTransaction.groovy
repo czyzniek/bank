@@ -12,6 +12,10 @@ Contract.make {
             contentType(APPLICATION_JSON_VALUE)
         }
         body(
+            type: $(
+                stub(anyOf("STANDARD", "PREMIUM")),
+                test("STANDARD")
+            ),
             targetAccount: $(
                 stub(anyUuid()),
                 test("c992a432-3082-4d08-9f0a-8e2e11e29718")
