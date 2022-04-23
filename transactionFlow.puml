@@ -9,6 +9,7 @@ participant "Bank provider" as BP
 FU -> BE : init Transaction
 note right
 {
+    "type": ["STANDARD"|"PREMIUM"]
     "targetAccount": //UUID//,
     "money": {
         "amount": 100,
