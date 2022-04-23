@@ -6,6 +6,7 @@ import java.util.UUID
 
 class Transaction(
     val id: UUID,
+    val type: TransactionType,
     var fromAccount: UUID?,
     val toAccount: UUID,
     val money: MonetaryValue,
@@ -13,13 +14,14 @@ class Transaction(
     var status: TransactionStatus,
     val createdAt: Instant,
     var authorizedAt: Instant?,
-    var submittedTransferId: UUID?
+    var submittedTransfersId: List<UUID>
 ) {
 
     companion object Factory {
         fun initialize(command: InitializeTransaction): Transaction =
             Transaction(
                 UUID.randomUUID(),
+                command.type,
                 null,
                 command.toAccount,
                 command.money,
@@ -27,14 +29,21 @@ class Transaction(
                 TransactionStatus.INITIALIZED,
                 Instant.now(),
                 null,
-                null
+                mutableListOf()
             )
     }
 
+    fun getFee(): MonetaryValue =
+        MonetaryValue(
+            money.amount.multiply(type.fee.rate),
+            money.currency
+        )
+
     fun confirm(command: ConfirmTransaction): Transaction =
         apply {
-            if (command.fromAccountBalance.currency != money.currency ||
-                command.fromAccountBalance.amount.compareTo(money.amount) == -1
+            val totalTransactionAmount = calculateTotalAmount()
+            if (command.fromAccountBalance.currency != totalTransactionAmount.currency ||
+                command.fromAccountBalance.amount.compareTo(totalTransactionAmount.amount) == -1
             ) {
                 throw IllegalStateException("Account does not have enough money!")
             }
@@ -48,6 +57,19 @@ class Transaction(
             authorizedAt = Instant.now()
             status = TransactionStatus.AUTHORIZED
         }
+
+    private fun calculateTotalAmount(): MonetaryValue {
+        val feeAmount = MonetaryValue(money.amount * type.fee.rate, money.currency)
+        return MonetaryValue(
+            money.amount + feeAmount.amount,
+            money.currency
+        )
+    }
+}
+
+enum class TransactionType(val fee: Fee) {
+    STANDARD(Fee(BigDecimal("0.01"))),
+    PREMIUM(Fee(BigDecimal("0.1")));
 }
 
 data class MonetaryValue(
@@ -64,6 +86,7 @@ enum class TransactionStatus {
 }
 
 data class InitializeTransaction(
+    val type: TransactionType,
     val toAccount: UUID,
     val money: MonetaryValue,
     val note: String?
@@ -72,4 +95,8 @@ data class InitializeTransaction(
 data class ConfirmTransaction(
     val fromAccount: UUID,
     val fromAccountBalance: MonetaryValue
+)
+
+data class Fee(
+    val rate: BigDecimal
 )

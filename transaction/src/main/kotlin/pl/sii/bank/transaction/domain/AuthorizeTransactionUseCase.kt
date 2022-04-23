@@ -10,14 +10,21 @@ class AuthorizeTransactionUseCase(
     private val externalTransferProvider: ExternalTransferProvider,
     private val log: Logger = LoggerFactory.getLogger(AuthorizeTransactionUseCase::class.java)
 ) {
+    private val INTERNAL_FEE_ACCOUNT_IBAN: String = "PL27114017889600623628471548"
+
     fun execute(input: Input): Output {
         log.info("Authorizing transaction with id {}", input.transactionId)
         val authorizedTransaction = transactionStore.find(input.transactionId)
             ?.authorize()
             ?.apply {
+                log.info("Submitting fee {} to external provider", input.transactionId)
+                val submittedTransferId = submitFeeToExternalProvider(this)
+                this.submittedTransfersId += submittedTransferId
+            }
+            ?.apply {
                 log.info("Submitting transaction {} to external provider", input.transactionId)
                 val submittedTransferId = submitTransactionToExternalProvider(this)
-                this.submittedTransferId = submittedTransferId
+                this.submittedTransfersId += submittedTransferId
             }
             ?.apply {
                 log.info("Saving authorized transaction {}", input.transactionId)
@@ -35,6 +42,20 @@ class AuthorizeTransactionUseCase(
             amount = transaction.money.amount,
             currency = transaction.money.currency.name,
             note = transaction.note
+        )
+        val result = externalTransferProvider.submitTransfer(params)
+        return result.externalId
+    }
+
+    private fun submitFeeToExternalProvider(transaction: Transaction): UUID {
+        val fromAccount = customerAccountStore.findById(transaction.fromAccount!!)
+        val fee = transaction.getFee()
+        val params = ExternalTransferProvider.SubmitTransferParams(
+            fromAccount = fromAccount!!.iban,
+            toAccount = INTERNAL_FEE_ACCOUNT_IBAN,
+            amount = fee.amount,
+            currency = fee.currency.name,
+            note = "Fee for transaction ${transaction.id}"
         )
         val result = externalTransferProvider.submitTransfer(params)
         return result.externalId
