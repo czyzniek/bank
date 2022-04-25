@@ -20,5 +20,9 @@ spring:
                 password: rabbitmq
                 virtual-host: /
 
+logging:
+  level:
+    org.springframework.test.context.cache: DEBUG
+
 bank.provider.url: http://localhost:8082
 accounting.url: http://localhost:8081
