@@ -12,6 +12,7 @@ import pl.sii.bank.accounting.domain.CreateAccountForCustomerUseCase
 import pl.sii.bank.accounting.domain.CreateCustomerUserCase
 import pl.sii.bank.accounting.domain.FetchAllCustomersUseCase
 import java.util.UUID
+import javax.validation.Valid
 
 @RestController
 class CustomerController(
@@ -25,7 +26,7 @@ class CustomerController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseStatus(HttpStatus.CREATED)
-    fun createCustomer(@RequestBody request: CreateCustomerRequest): Map<String, UUID> {
+    fun createCustomer(@RequestBody @Valid request: CreateCustomerRequest): Map<String, UUID> {
         val input = CreateCustomerUserCase.Input(request.firstName, request.lastName, request.birthDate)
         val output = createCustomerUserCase.execute(input)
         return mapOf("customerId" to output.id)

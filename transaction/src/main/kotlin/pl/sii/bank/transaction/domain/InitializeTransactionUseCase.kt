@@ -12,8 +12,10 @@ class InitializeTransactionUseCase(
         log.info("Initializing transaction")
         val command = InitializeTransaction(input.transactionType, input.toAccount, input.money, input.note)
         return Transaction.initialize(command).let {
-            log.info("Saving initialized transaction {}", it.id)
-            val savedTransaction = transactionStore.save(it)
+
+             log.info("Saving initialized transaction {}", it.id)
+                    val savedTransaction = transactionStore.save(it)
+
             Output(savedTransaction.id)
         }
     }

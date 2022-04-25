@@ -1,14 +1,12 @@
 package pl.sii.bank.accounting.infrastructure.web
 
 import java.time.LocalDate
-import javax.validation.constraints.Max
-import javax.validation.constraints.Pattern
+import javax.validation.constraints.Size
 
 data class CreateCustomerRequest(
-    @Max(25)
+    @field:Size(max = 25)
     val firstName: String,
-    @Max(25)
+    @field:Size(max = 25)
     val lastName: String,
-    @Pattern(regexp = "yyyy-MM-dd")
     val birthDate: LocalDate
 )

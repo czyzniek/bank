@@ -47,6 +47,11 @@
                 <version>1.12.3</version>
             </dependency>
             <dependency>
+                <groupId>org.mockito.kotlin</groupId>
+                <artifactId>mockito-kotlin</artifactId>
+                <version>3.2.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-wiremock</artifactId>
                 <version>3.1.1</version>
@@ -65,7 +70,7 @@
                 <plugin>
                     <groupId>com.github.ozsie</groupId>
                     <artifactId>detekt-maven-plugin</artifactId>
-                    <version>1.19.0.1</version>
+                    <version>1.20.0</version>
                     <configuration>
                         <config>config/detekt/default-detekt-config.yml</config>
                     </configuration>
@@ -77,6 +82,13 @@
                             </goals>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>io.gitlab.arturbosch.detekt</groupId>
+                            <artifactId>detekt-formatting</artifactId>
+                            <version>1.20.0</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
